@@ -1,0 +1,23 @@
+<template>
+  <v-app>
+    <v-main>
+      <Map />
+    </v-main>
+  </v-app>
+</template>
+
+<script>
+import Map from "@/components/map";
+
+export default {
+  name: 'App',
+
+  components: {
+    Map,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
