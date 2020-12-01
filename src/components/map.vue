@@ -19,7 +19,7 @@
       <v-card>
         <v-card-text style="height: 70%;">
           <v-list>
-            <v-subheader>点を編集</v-subheader>
+            <v-subheader>日付を選択</v-subheader>
             <v-list two-line>
               <template v-for="(checkin, index) in checkins">
 <!--                <checkin-editor-->
@@ -31,31 +31,37 @@
                 ></v-divider>
               </template>
             </v-list>
-            <v-row>
-              <v-col
-                  cols="12"
-                  sm="6"
-              >
-                <v-date-picker
-                    v-model="dates"
-                    range
-                ></v-date-picker>
-              </v-col>
-              <v-col
-                  cols="12"
-                  sm="6"
-              >
+            <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                    v-model="dateRangeText"
-                    label="Date range"
+                    v-model="startDate"
+                    label="Picker without buttons"
                     prepend-icon="mdi-calendar"
                     readonly
+                    v-bind="attrs"
+                    v-on="on"
                 ></v-text-field>
-                model: {{ dates }}
-              </v-col>
-            </v-row>
+              </template>
+              <v-date-picker
+                  v-model="startDate"
+                  @input="menu2 = false"
+              ></v-date-picker>
+            </v-menu>
             <v-divider/>
             <v-subheader>保存する</v-subheader>
+            <div class="add-button">
+              <v-btn dark large color="green" @click="loadCheckins">
+                <v-icon dark left>mdi-floppy</v-icon>
+                読み込む
+              </v-btn>
+            </div>
             <div class="add-button">
               <v-btn dark large color="blue" @click="save">
                 <v-icon dark left>mdi-floppy</v-icon>
@@ -68,7 +74,7 @@
     </v-bottom-sheet>
 
     <l-map
-        ref="map"
+        ref="basemap"
         id="mappreview"
         class="mapPane"
         :zoom="zoom"
@@ -114,7 +120,7 @@ import "leaflet-easyprint";
 // import CheckinEditor from "@/components/checkinEditor";
 
 export default {
-  name: "map",
+  name: "basemap",
   components: {
     // CheckinEditor,
     LMap,
@@ -146,7 +152,9 @@ export default {
       checkins: [],
       snackbar: false,
       count: 0,
-      dates: []
+      dates: [],
+      startDate: new Date().toISOString().substr(0, 10),
+      menu2: false
     };
   },
   mounted() {
@@ -171,7 +179,7 @@ export default {
         tooltip: "1080p size"
       };
 
-      const map = this.$refs.map.mapObject;
+      const map = this.$refs.basemap.mapObject;
       const printPlugin = L.easyPrint({
         exportOnly: true,
         sizeModes: [p1080],
@@ -188,6 +196,9 @@ export default {
           checkin => checkin.id === toDeleteId
       );
       this.checkins.splice(toDeleteIdx, 1);
+    },
+    loadCheckins: function () {
+      console.log(Date.parse(this.startDate) / 1000)
     }
   }
 };
