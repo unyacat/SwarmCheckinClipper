@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "leaflet": "^1.6.0",
     "leaflet-easyprint": "^2.1.9",
+    "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue2-leaflet": "^2.5.2",
     "vuetify": "^2.3.10"

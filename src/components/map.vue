@@ -118,7 +118,7 @@ import {LMap, LTileLayer, LMarker, LPopup} from "vue2-leaflet";
 
 import "leaflet-easyprint";
 // import CheckinEditor from "@/components/checkinEditor";
-
+import moment from "moment";
 export default {
   name: "basemap",
   components: {
@@ -198,7 +198,8 @@ export default {
       this.checkins.splice(toDeleteIdx, 1);
     },
     loadCheckins: function () {
-      console.log(Date.parse(this.startDate) / 1000)
+      console.log(moment(this.startDate).unix())
+      console.log(moment(this.startDate).add(1, 'days').unix())
     }
   }
 };

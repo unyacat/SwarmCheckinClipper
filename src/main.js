@@ -8,6 +8,7 @@ import "leaflet/dist/leaflet.css";
 import vuetify from "./plugins/vuetify";
 //ここまで
 
+
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 
