@@ -80,6 +80,7 @@
         :zoom="zoom"
         :center="center"
         :options="options"
+        :preferCanvas="true"
     >
       <l-tile-layer
           :visible="true"
@@ -92,13 +93,15 @@
       <!--        url="http://a.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"-->
       <!--        layer-type="overlay"-->
       <!--      ></l-tile-layer>-->
-        <l-marker
+        <l-circle
             v-for="checkin in checkins"
             :key="checkin.id"
             :lat-lng="[checkin.venue.location.lat, checkin.venue.location.lng]"
+            :radius="6"
+            :interactive="false"
         >
-          <l-popup :content="checkin.venue.name"/>
-        </l-marker>
+<!--          <l-popup :content="checkin.venue.name"/>-->
+        </l-circle>
 
     </l-map>
 
@@ -114,7 +117,9 @@
 
 <script>
 import L from "leaflet";
-import {LMap, LTileLayer, LMarker, LPopup} from "vue2-leaflet";
+import {LMap, LTileLayer, LCircle,
+//  LPopup
+} from "vue2-leaflet";
 
 import "leaflet-easyprint";
 // import CheckinEditor from "@/components/checkinEditor";
@@ -125,8 +130,8 @@ export default {
     // CheckinEditor,
     LMap,
     LTileLayer,
-    LMarker,
-    LPopup
+    LCircle,
+    // LPopup
   },
 
   data() {
@@ -164,7 +169,7 @@ export default {
     });
   },
   created() {
-    this.$axios.get("http://localhost/mock-checkins").then(res => {
+    this.$axios.get("http://localhost/mock-allcheckins").then(res => {
       this.checkins = res.data.checkins.items;
       this.snackbar = true
       this.count = this.checkins.length
