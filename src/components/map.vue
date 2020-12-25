@@ -80,7 +80,6 @@
         :zoom="zoom"
         :center="center"
         :options="options"
-        :preferCanvas="true"
     >
       <l-tile-layer
           :visible="true"
@@ -98,7 +97,6 @@
             :key="checkin.id"
             :lat-lng="[checkin.venue.location.lat, checkin.venue.location.lng]"
             :radius="6"
-            :interactive="false"
         >
 <!--          <l-popup :content="checkin.venue.name"/>-->
         </l-circle>
@@ -146,6 +144,7 @@ export default {
         useCache: true,
         zoomControl: false,
         crossOrigin: true,
+        preferCanvas: true,
         style: function style() {
           return {
             weight: 4,
