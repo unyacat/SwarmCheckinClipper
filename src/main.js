@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import Login from './Login';
+import Login from './Home';
 import axios from "axios";
 import store from './store';
 import Router from 'vue-router'
