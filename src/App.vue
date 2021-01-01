@@ -2,20 +2,20 @@
   <v-app>
     <v-main>
 <!--      <Map />-->
-      <Result />
+<!--      <Result />-->
+      <Home />
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import Map from "@/components/map";
-import Result from "./components/result";
+import Home from './Home'
 
 export default {
   name: 'App',
 
   components: {
-    Result,
+    Home
     // Map,
   },
 
