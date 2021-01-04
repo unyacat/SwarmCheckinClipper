@@ -1,21 +1,19 @@
 <template>
   <v-app>
     <v-main>
-<!--      <Map />-->
-<!--      <Result />-->
-      <Home />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Home from './Home'
+// import Home from './Home'
 
 export default {
   name: 'App',
 
   components: {
-    Home
+    // Home
     // Map,
   },
 

@@ -16,9 +16,11 @@
 
         <v-col cols="12">
           <div class="text-center">
-            <v-btn elevation="2" color="orange" class="white--text">
-              Authenticate with Foursquare
-            </v-btn>
+            <router-link to="/map">
+              <v-btn elevation="2" color="orange" class="white--text">
+                Authenticate with Foursquare
+              </v-btn>
+            </router-link>
           </div>
         </v-col>
       </v-row>
@@ -41,5 +43,8 @@ export default {
     left: 0;
     background-size: cover;
     background-image: url("");
+  }
+  a {
+    text-decoration: none;
   }
 </style>
