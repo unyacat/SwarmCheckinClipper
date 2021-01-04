@@ -1,5 +1,5 @@
 <template>
-  <v-content class="bg">
+  <v-main class="bg">
     <v-container>
       <v-row justify="center" align-content="center" style="height: 450px">
         <v-spacer />
@@ -25,7 +25,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
