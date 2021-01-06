@@ -37,7 +37,6 @@ const router = new Router(
 
 router.beforeEach((to, from, next) => {
   const sessionId = Vue.$cookies.get('sessionId');
-  // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
   if (to.matched.some(record => !record.meta.isPublic) && sessionId) {
     next({ path: '/'});
   } else {
