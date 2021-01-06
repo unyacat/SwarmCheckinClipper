@@ -16,7 +16,7 @@
 
         <v-col cols="12">
           <div class="text-center">
-            <router-link to="/map">
+            <router-link to="/auth">
               <v-btn elevation="2" color="orange" class="white--text">
                 Authenticate with Foursquare
               </v-btn>

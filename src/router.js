@@ -1,25 +1,52 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Cookie from 'vue-cookies'
 import Home from './Home'
 import map from './components/map'
 
 Vue.use(Router)
+Vue.use(Cookie)
 
-export default new Router({
+
+const router = new Router(
+{
   mode: 'history',
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        isPublic: true
+      }
     },
     {
       path: '/map',
       name: 'map',
       component: map
+    },
+    {
+      path: '/auth',
+      beforeEnter() {location.href = 'http://localhost/auth'},
+      meta: {
+        isPublic: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const sessionId = Vue.$cookies.get('sessionId');
+  // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
+  if (to.matched.some(record => !record.meta.isPublic) && sessionId) {
+    next({ path: '/'});
+  } else {
+    next();
+  }
+});
+
+
+export default router;
 
 
 // Router.beforeEach((to, from, next) => {
