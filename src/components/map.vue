@@ -92,14 +92,14 @@
       <!--        url="http://a.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"-->
       <!--        layer-type="overlay"-->
       <!--      ></l-tile-layer>-->
-        <l-circle
-            v-for="checkin in checkins"
-            :key="checkin.id"
-            :lat-lng="[checkin.venue.location.lat, checkin.venue.location.lng]"
-            :radius="6"
-        >
-<!--          <l-popup :content="checkin.venue.name"/>-->
-        </l-circle>
+            <l-circle
+                v-for="checkin in checkins"
+                :key="checkin.id"
+                :lat-lng="checkin.latlng"
+                :radius="100"
+            >
+              <l-popup :content="checkin.id"/>
+            </l-circle>
 
     </l-map>
 
@@ -115,8 +115,9 @@
 
 <script>
 import L from "leaflet";
-import {LMap, LTileLayer, LCircle,
-//  LPopup
+import {LMap, LTileLayer,
+  LCircle,
+   LPopup
 } from "vue2-leaflet";
 
 import "leaflet-easyprint";
@@ -129,7 +130,7 @@ export default {
     LMap,
     LTileLayer,
     LCircle,
-    // LPopup
+    LPopup
   },
 
   data() {
@@ -168,10 +169,23 @@ export default {
     });
   },
   created() {
-    this.$axios.get("http://localhost/mock-allcheckins").then(res => {
-      this.checkins = res.data.checkins.items;
+    // TODO: withCredentials
+    this.$axios.get("http://127.0.0.1/mock-allcheckins", { withCredentials: true }).then(res => {
       this.snackbar = true
-      this.count = this.checkins.length
+      this.count = res.data.checkins.count;
+      res.data.checkins.items.forEach((item) => {
+        this.checkins.push(
+            {
+              "latlng": [item.venue.location.lat, item.venue.location.lng],
+              "id": item.id
+            })
+        }
+      )
+      this.checkins = Object.freeze(this.checkins)
+      // res.data.checkins.items.forEach((item) => {
+      //   L.circleMarker([item.venue.location.lat, item.venue.location.lng], {
+      //   }).addTo(this.$refs.basemap.mapObject).bindPopup(item.id)
+      // })
     });
   },
   methods: {
