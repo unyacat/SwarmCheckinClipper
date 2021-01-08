@@ -21,15 +21,15 @@
           <v-list>
             <v-subheader>日付を選択</v-subheader>
             <v-list two-line>
-              <template v-for="(checkin, index) in checkins">
-<!--                <checkin-editor-->
-<!--                    :checkin="checkin"-->
-<!--                    :key="checkin.id"-->
-<!--                    @deleteCheckin="deleteCheckin"-->
-<!--                ></checkin-editor>-->
-                <v-divider v-if="index + 1 < railroads.length" :key="index+10000"
-                ></v-divider>
-              </template>
+<!--              <template v-for="(checkin, index) in checkins">-->
+                <!--                    :checkin="checkin"-->
+                <!--                    :key="checkin.id"-->
+                <!--                    @deleteCheckin="deleteCheckin"-->
+                <!--                ></checkin-editor>-->
+                <!--                <checkin-editor-->
+<!--                <v-divider v-if="index + 1 < railroads.length" :key="index+10000"-->
+<!--                ></v-divider>-->
+<!--              </template>-->
             </v-list>
             <v-menu
                 v-model="menu2"
@@ -73,6 +73,10 @@
       </v-card>
     </v-bottom-sheet>
 
+
+
+
+
     <l-map
         ref="basemap"
         id="mappreview"
@@ -92,16 +96,36 @@
       <!--        url="http://a.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"-->
       <!--        layer-type="overlay"-->
       <!--      ></l-tile-layer>-->
-            <l-circle
-                v-for="checkin in checkins"
-                :key="checkin.id"
-                :lat-lng="checkin.latlng"
-                :radius="100"
-            >
-              <l-popup :content="checkin.id"/>
-            </l-circle>
+      <l-circle
+          v-for="checkin in checkins"
+          :key="checkin.id"
+          :lat-lng="checkin.latlng"
+          :radius="100"
+      >
+        <l-popup :content="checkin.id"/>
+      </l-circle>
 
     </l-map>
+
+    <v-dialog
+        v-model="loading"
+        width="500"
+        style="z-index: 9999"
+    >
+      <v-card
+          color="primary"
+          dark
+      >
+        <v-card-text>
+          全チェックインを読込中です...
+          <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <v-snackbar
         v-model="snackbar"
@@ -110,19 +134,22 @@
       {{ count }} 件のチェックインを読み込みました
     </v-snackbar>
 
+
   </div>
 </template>
 
 <script>
 import L from "leaflet";
-import {LMap, LTileLayer,
+import {
+  LMap, LTileLayer,
   LCircle,
-   LPopup
+  LPopup
 } from "vue2-leaflet";
 
 import "leaflet-easyprint";
 // import CheckinEditor from "@/components/checkinEditor";
 import moment from "moment";
+
 export default {
   name: "basemap",
   components: {
@@ -159,33 +186,40 @@ export default {
       count: 0,
       dates: [],
       startDate: new Date().toISOString().substr(0, 10),
-      menu2: false
+      menu2: false,
+      loading: false
     };
   },
   mounted() {
     this.$nextTick(function () {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
+      this.loading = true
     });
   },
+
   created() {
     // TODO: withCredentials
-    this.$axios.get("http://127.0.0.1/mock-allcheckins", { withCredentials: true }).then(res => {
+
+    this.$axios.get("http://127.0.0.1/mock-allcheckins", {withCredentials: true}).then(res => {
       this.snackbar = true
       this.count = res.data.checkins.count;
       res.data.checkins.items.forEach((item) => {
-        this.checkins.push(
-            {
-              "latlng": [item.venue.location.lat, item.venue.location.lng],
-              "id": item.id
-            })
-        }
+            this.checkins.push(
+                {
+                  "latlng": [item.venue.location.lat, item.venue.location.lng],
+                  "id": item.id
+                })
+          }
       )
       this.checkins = Object.freeze(this.checkins)
+
       // res.data.checkins.items.forEach((item) => {
       //   L.circleMarker([item.venue.location.lat, item.venue.location.lng], {
       //   }).addTo(this.$refs.basemap.mapObject).bindPopup(item.id)
       // })
+    }).then(() => {
+      this.loading = false
     });
   },
   methods: {
