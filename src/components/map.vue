@@ -46,6 +46,19 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog
+        v-model="dialog"
+        persistent
+        width="300"
+        style="z-index: 999"
+    >
+      <v-card>
+        <v-card-title class="headline">読み込みエラー</v-card-title>
+        <v-card-text>何かがおかしいよ</v-card-text>
+      </v-card>
+    </v-dialog>
+
+
     <v-snackbar
         v-model="snackbar"
         timeout="3000"
@@ -96,7 +109,8 @@ export default {
       checkins: [],
       snackbar: false,
       count: 0,
-      loading: false
+      loading: false,
+      dialog: false
     };
   },
   mounted() {
@@ -122,6 +136,10 @@ export default {
       this.checkins = Object.freeze(this.checkins)
     }).then(() => {
       this.loading = false
+    }).catch(() => {
+      console.log("エラー処理")
+      this.loading = false
+      this.dialog = true
     });
   },
 };
