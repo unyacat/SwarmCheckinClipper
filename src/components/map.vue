@@ -27,8 +27,9 @@
 
     <v-dialog
         v-model="loading"
+        persistent
         width="500"
-        style="z-index: 9999"
+        style="z-index: 999"
     >
       <v-card
           color="primary"
