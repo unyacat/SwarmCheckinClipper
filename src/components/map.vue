@@ -19,6 +19,8 @@
           :key="checkin.id"
           :lat-lng="checkin.latlng"
           :radius="100"
+          color="orange"
+          fillColor="orange"
       >
         <l-popup :content="checkin.id"/>
       </l-circle>
