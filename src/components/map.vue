@@ -163,7 +163,7 @@ export default {
 
 <style scoped>
 .mapPane {
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(1vh * 100);
   margin: 0;
   text-align: left;
 }
