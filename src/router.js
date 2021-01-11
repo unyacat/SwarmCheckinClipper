@@ -31,6 +31,11 @@ const router = new Router(
       meta: {
         isPublic: true
       }
+    },
+    {
+      name: 'notfound',
+      path: '*',
+      redirect: '/'
     }
   ]
 })
