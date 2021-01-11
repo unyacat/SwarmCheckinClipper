@@ -17,14 +17,14 @@
       ></l-tile-layer>
       <l-circle
           v-for="checkin in checkins"
-          :key="checkin.id"
-          :lat-lng="checkin.latlng"
+          :key="checkin.venue.id"
+          :lat-lng="checkin.venue.location.latlng"
           :radius="circle.radius"
           :color="circle.color"
           :fillColor="circle.fillColor"
           :fillOpacity="circle.fillOpacity"
       >
-        <l-popup :content="checkin.id"/>
+        <l-popup :content="checkin.venue.location.name"/>
       </l-circle>
 
     </l-map>
@@ -135,14 +135,7 @@ export default {
     this.$axios.get(process.env.VUE_APP_HOST + "/mock-allcheckins", {withCredentials: true}).then(res => {
       this.snackbar = true
       this.count = res.data.checkins.count;
-      res.data.checkins.items.forEach((item) => {
-            this.checkins.push(
-                {
-                  "latlng": [item.venue.location.lat, item.venue.location.lng],
-                  "id": item.id
-                })
-          }
-      )
+      this.checkins = res.data.checkins.items;
       this.checkins = Object.freeze(this.checkins)
     }).then(() => {
       this.loading = false
