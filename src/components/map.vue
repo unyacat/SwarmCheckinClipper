@@ -7,6 +7,7 @@
         :zoom="zoom"
         :center="center"
         :options="options"
+        @update:zoom="zoomUpdated"
     >
       <l-tile-layer
           :visible="true"
@@ -18,9 +19,10 @@
           v-for="checkin in checkins"
           :key="checkin.id"
           :lat-lng="checkin.latlng"
-          :radius="100"
-          color="orange"
-          fillColor="orange"
+          :radius="circle.radius"
+          :color="circle.color"
+          :fillColor="circle.fillColor"
+          :fillOpacity="circle.fillOpacity"
       >
         <l-popup :content="checkin.id"/>
       </l-circle>
@@ -112,7 +114,13 @@ export default {
       snackbar: false,
       count: 0,
       loading: false,
-      dialog: false
+      dialog: false,
+      circle: {
+        radius: 100,
+        color: "orange",
+        fillColor: "orange",
+        fillOpacity: 1
+      }
     };
   },
   mounted() {
@@ -144,6 +152,12 @@ export default {
       this.dialog = true
     });
   },
+  methods: {
+    zoomUpdated(zoom) {
+      const radius = [100, 100, 100, 100, 100, 100, 100, 100, 300, 300, 100, 100, 50, 50, 10, 10, 10, 10, 10]
+      this.$set(this.circle, 'radius', radius[zoom - 1])
+    }
+  }
 };
 </script>
 
