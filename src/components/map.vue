@@ -132,7 +132,7 @@ export default {
   },
 
   created() {
-    this.$axios.get("http://127.0.0.1/mock-allcheckins", {withCredentials: true}).then(res => {
+    this.$axios.get(process.env.VUE_APP_HOST + "/mock-allcheckins", {withCredentials: true}).then(res => {
       this.snackbar = true
       this.count = res.data.checkins.count;
       res.data.checkins.items.forEach((item) => {

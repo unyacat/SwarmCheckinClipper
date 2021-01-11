@@ -27,7 +27,7 @@ const router = new Router(
     },
     {
       path: '/auth',
-      beforeEnter() {location.href = 'http://localhost/auth'},
+      beforeEnter() {location.href = process.env.VUE_APP_HOST + '/auth'},
       meta: {
         isPublic: true
       }
