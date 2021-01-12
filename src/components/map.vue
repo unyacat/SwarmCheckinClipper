@@ -24,9 +24,23 @@
           :fillColor="circle.fillColor"
           :fillOpacity="circle.fillOpacity"
       >
-        <l-popup :content="checkin.venue.location.name"/>
-      </l-circle>
+        <l-popup class="popup">
+<!--          <h2><img width=16 height=16 :src="checkin.venue.categories.icon">-->
+<!--            {{checkin.venue.name}}</h2>-->
+          <v-card elevation="0">
+            <v-list-item dense>
+              <v-list-item-avatar>
+                <v-img :src="checkin.venue.categories.icon"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-card-title v-text="checkin.venue.name" />
+                <v-card-subtitle v-text="checkin.venue.categories.name" />
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </l-popup>
 
+      </l-circle>
     </l-map>
 
     <v-dialog
@@ -154,6 +168,14 @@ export default {
 };
 </script>
 
+
+<style>
+.leaflet-popup-content-wrapper {
+  border-radius: 5px !important;
+}
+</style>
+
+
 <style scoped>
 .mapPane {
   height: calc(1vh * 100);
@@ -161,4 +183,9 @@ export default {
   text-align: left;
 }
 
+.popup {
+  width: 300px;
+}
 </style>
+
+
