@@ -149,7 +149,7 @@ export default {
   },
 
   created() {
-    this.$axios.get(process.env.VUE_APP_HOST + "/mock-allcheckins", {withCredentials: true}).then(res => {
+    this.$axios.get(process.env.VUE_APP_HOST + "/checkins", {withCredentials: true}).then(res => {
       this.snackbar = true
       this.count = res.data.checkins.count;
       // this.checkins = res.data.checkins.items;
