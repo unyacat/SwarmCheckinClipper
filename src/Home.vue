@@ -5,7 +5,7 @@
         <v-spacer />
         <v-col cols="12">
           <div class="text-h3 text-sm-h3 text-md-h3 text-lg-h2 text-xl-h2 text-center">
-            Swarm Mapper
+            Swarm Analyzer
           </div>
         </v-col>
         <v-col cols="12">
@@ -21,6 +21,11 @@
                 Authenticate with Foursquare
               </v-btn>
             </router-link>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="text-center">
+            (作業中)
           </div>
         </v-col>
       </v-row>
