@@ -11,7 +11,7 @@
     >
       <l-tile-layer
           :visible="true"
-          url="https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
+          url="https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png"
           attribution="Data <a href='https://www.openstreetmap.org/copyright'>© OpenStreetMap contributors</a>"
           layer-type="base"
       ></l-tile-layer>
@@ -25,16 +25,16 @@
           :fillOpacity="circle.fillOpacity"
       >
         <l-popup class="popup">
-<!--          <h2><img width=16 height=16 :src="checkin.venue.categories.icon">-->
-<!--            {{checkin.venue.name}}</h2>-->
+          <h2><img width=16 height=16 :src="checkin.venue.categories.icon" alt="Category icon">
+            {{ checkin.venue.name }}</h2>
           <v-card elevation="0">
             <v-list-item dense>
               <v-list-item-avatar>
                 <v-img :src="checkin.venue.categories.icon"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-card-title v-text="checkin.venue.name" />
-                <v-card-subtitle v-text="checkin.venue.categories.name" />
+                <v-card-title v-text="checkin.venue.name"/>
+                <v-card-subtitle v-text="checkin.venue.categories.name"/>
               </v-list-item-content>
             </v-list-item>
           </v-card>
@@ -96,7 +96,10 @@ import {
   LPopup
 } from "vue2-leaflet";
 
+// import L from "leaflet"
 import "leaflet-easyprint";
+
+// import popupCard from "@/components/popupCard";
 
 export default {
   name: "basemap",
@@ -149,9 +152,16 @@ export default {
     this.$axios.get(process.env.VUE_APP_HOST + "/mock-allcheckins", {withCredentials: true}).then(res => {
       this.snackbar = true
       this.count = res.data.checkins.count;
-      this.checkins = res.data.checkins.items;
-      this.checkins = Object.freeze(this.checkins)
+      // this.checkins = res.data.checkins.items;
+      // this.checkins = Object.freeze(res.data.checkins.items)
+      this.checkins = this.deepFreeze(res.data.checkins.items)
     }).then(() => {
+      // this.checkins.forEach((checkin) => {
+      //       L.circle(checkin.venue.location.latlng, 500).addTo(this.$refs.basemap.mapObject).bindPopup(
+      //           checkin.venue.name
+      //       )
+      //     }
+      // )
       this.loading = false
     }).catch(() => {
       console.log("エラー処理")
@@ -160,12 +170,20 @@ export default {
     });
   },
   methods: {
+    deepFreeze(obj) {
+      Object.keys(obj).forEach(prop => {
+        if (typeof obj[prop] === 'object' && !Object.isFrozen(obj[prop])) this.deepFreeze(obj[prop]);
+      });
+      return Object.freeze(obj);
+    },
     zoomUpdated(zoom) {
-      const radius = [100, 100, 100, 100, 100, 100, 100, 100, 300, 300, 100, 100, 50, 50, 10, 10, 10, 10, 10]
-      this.$set(this.circle, 'radius', radius[zoom - 1])
+      console.log(zoom)
+      // return 0
+      // const radius = [100, 100, 100, 100, 100, 100, 100, 100, 300, 300, 100, 100, 50, 50, 10, 10, 10, 10, 10]
+      // this.$set(this.circle, 'radius', radius[zoom - 1])
     }
   }
-};
+}
 </script>
 
 
