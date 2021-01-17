@@ -10,6 +10,7 @@ import "leaflet/dist/leaflet.css";
 import vuetify from "./plugins/vuetify";
 //ここまで
 
+
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -23,7 +24,6 @@ delete Icon.Default.prototype._getIconUrl;
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
-
 
 if (window.location.hash === "#_=_"){
   history.replaceState

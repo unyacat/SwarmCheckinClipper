@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
+    "dayjs": "^1.10.3",
     "leaflet": "^1.7.1",
     "leaflet-easyprint": "^2.1.9",
     "prettier": "^2.2.1",
