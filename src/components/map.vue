@@ -24,10 +24,8 @@
           :fillColor="circle.fillColor"
           :fillOpacity="circle.fillOpacity"
       >
-        <l-popup class="popup">
-          <h2><img width=16 height=16 :src="checkin.venue.categories.icon" alt="Category icon">
-            {{ checkin.venue.name }}</h2>
-          <v-card elevation="0">
+        <l-popup>
+          <v-card elevation="0" class="popup">
             <v-list-item dense>
               <v-list-item-avatar>
                 <v-img :src="checkin.venue.categories.icon"></v-img>
@@ -191,6 +189,10 @@ export default {
 .leaflet-popup-content-wrapper {
   border-radius: 5px !important;
 }
+
+.leaflet-popup-content {
+  margin: 0 0 !important;
+}
 </style>
 
 
@@ -202,8 +204,9 @@ export default {
 }
 
 .popup {
-  width: 300px;
+  width: 400px;
 }
+
 </style>
 
 
