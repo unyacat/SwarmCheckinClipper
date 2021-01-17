@@ -61,7 +61,7 @@
           dark
       >
         <v-card-text>
-          全チェックインを読込中です...
+          全チェックインを読込中です...(数分かかることもあります)
           <v-progress-linear
               indeterminate
               color="white"
