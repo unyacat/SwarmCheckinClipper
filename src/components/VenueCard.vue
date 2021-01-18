@@ -9,15 +9,21 @@
         <v-card-subtitle v-text="checkin.venue.categories.name"/>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item dense>
+    <v-list-item dense style="min-height: 20px">
       <v-list-item-title>最終チェックイン</v-list-item-title>
       <v-list-item-subtitle class="text-right"
-                            v-text="lastCheckinTime(checkin.createdAt[0])"></v-list-item-subtitle>
+                            v-text="unixToRealtime(checkin.createdAt[0])"></v-list-item-subtitle>
     </v-list-item>
-    <v-list-item dense>
+    <v-list-item dense style="min-height: 20px">
       <v-list-item-title>チェックイン回数</v-list-item-title>
       <v-list-item-subtitle class="text-right"> {{ checkin.createdAt.length }} 回</v-list-item-subtitle>
     </v-list-item>
+    <v-card-actions>
+      <v-spacer/>
+      <v-btn text :to="/venue/ + checkin.venue.id">
+        詳細を見る
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -33,7 +39,7 @@ export default {
     }
   },
   methods: {
-    lastCheckinTime(unixtime) {
+    unixToRealtime(unixtime) {
       return dayjs.unix(unixtime).format("YYYY/MM/DD HH:mm:ss")
     }
   }

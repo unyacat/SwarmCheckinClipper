@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Cookie from 'vue-cookies'
 import Home from './Home'
 import map from './components/BaseMap'
+import VenueDetails from "@/components/VenueDetails";
 
 Vue.use(Router)
 Vue.use(Cookie)
@@ -24,6 +25,12 @@ const router = new Router(
       path: '/map',
       name: 'map',
       component: map
+    },
+    {
+      path: '/venue/:venueId',
+      name: 'venue',
+      component: VenueDetails,
+      props: true
     },
     {
       path: '/auth',
