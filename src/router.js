@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Cookie from 'vue-cookies'
 import Home from './Home'
-import map from './components/map'
+import map from './components/BaseMap'
 
 Vue.use(Router)
 Vue.use(Cookie)

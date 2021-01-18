@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import AnimatedNumber from "./animated-number";
+import AnimatedNumber from "./AnimatedNumber";
 export default {
   name: "result",
   components: {AnimatedNumber}
