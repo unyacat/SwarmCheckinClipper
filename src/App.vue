@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <router-view />
+      <keep-alive include="basemap">
+        <router-view />
+      </keep-alive>
     </v-main>
   </v-app>
 </template>

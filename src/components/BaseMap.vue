@@ -71,8 +71,6 @@
     >
       {{ count }} 件のチェックインを読み込みました
     </v-snackbar>
-
-
   </div>
 </template>
 
