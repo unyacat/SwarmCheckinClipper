@@ -11,7 +11,7 @@
     >
       <l-tile-layer
           :visible="true"
-          url="https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png"
+          url="	https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="Data <a href='https://www.openstreetmap.org/copyright'>© OpenStreetMap contributors</a>"
           layer-type="base"
       ></l-tile-layer>
@@ -185,6 +185,12 @@ export default {
 .leaflet-popup-content {
   margin: 0 0 !important;
 }
+
+img.leaflet-tile.leaflet-tile-loaded {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(1);
+  opacity: 1;
+}
 </style>
 
 
@@ -195,9 +201,6 @@ export default {
   text-align: left;
 }
 
-.popup {
-  width: 500px;
-}
 
 </style>
 
