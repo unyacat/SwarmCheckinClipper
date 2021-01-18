@@ -25,26 +25,7 @@
           :fillOpacity="circle.fillOpacity"
       >
         <l-popup>
-          <v-card elevation="0" class="popup">
-            <v-list-item dense>
-              <v-list-item-avatar>
-                <v-img :src="checkin.venue.categories.icon"></v-img>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-card-title v-text="checkin.venue.name"/>
-                <v-card-subtitle v-text="checkin.venue.categories.name"/>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item dense>
-              <v-list-item-title>最終チェックイン</v-list-item-title>
-              <v-list-item-subtitle class="text-right"
-                                    v-text="lastCheckinTime(checkin.createdAt[0])"></v-list-item-subtitle>
-            </v-list-item>
-            <v-list-item dense>
-              <v-list-item-title>チェックイン回数</v-list-item-title>
-              <v-list-item-subtitle class="text-right"> {{ checkin.createdAt.length }} 回</v-list-item-subtitle>
-            </v-list-item>
-          </v-card>
+          <VenueCard :checkin="checkin"/>
         </l-popup>
 
       </l-circle>
@@ -105,13 +86,14 @@ import {
 
 // import L from "leaflet"
 import "leaflet-easyprint";
-import dayjs from "dayjs";
-
+// import VenueDetails from "@/components/VenueDetails";
+import VenueCard from "@/components/VenueCard";
 // import popupCard from "@/components/popupCard";
 
 export default {
   name: "basemap",
   components: {
+    VenueCard,
     LMap,
     LTileLayer,
     LCircle,
@@ -189,9 +171,6 @@ export default {
       // return 0
       // const radius = [100, 100, 100, 100, 100, 100, 100, 100, 300, 300, 100, 100, 50, 50, 10, 10, 10, 10, 10]
       // this.$set(this.circle, 'radius', radius[zoom - 1])
-    },
-    lastCheckinTime(unixtime) {
-      return dayjs.unix(unixtime).format("YYYY/MM/DD HH:mm:ss")
     }
   }
 }
