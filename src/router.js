@@ -4,6 +4,7 @@ import Cookie from 'vue-cookies'
 import Home from './Home'
 import map from './components/BaseMap'
 import VenueDetails from "@/components/VenueDetails";
+import DayCheckins from "@/components/DayCheckins";
 
 Vue.use(Router)
 Vue.use(Cookie)
@@ -30,6 +31,12 @@ const router = new Router(
       path: '/venue/:venueId',
       name: 'venue',
       component: VenueDetails,
+      props: true
+    },
+    {
+      path: '/day/:day',
+      name: 'day-checkins',
+      component: DayCheckins,
       props: true
     },
     {
