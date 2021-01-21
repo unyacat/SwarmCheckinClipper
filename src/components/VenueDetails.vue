@@ -9,18 +9,17 @@
       </v-container>
     </v-app-bar>
 
-
+    <div class="venue-map">
+      <VenueMap :latlng="latlng"/>
+    </div>
     <v-container>
-      <div style="height: 300px; width: 100%">
-        <VenueMap :latlng="latlng"/>
-      </div>
       <v-layout>
         <v-row>
           <v-col cols="12">
-            <p class="text-h3">
+            <p class="text-sm-h4 text-md-h3">
               {{ name }}
             </p>
-            <p class="text-h5">
+            <p class="text-sm-h5 text-md-h4">
               {{ category }}
             </p>
           </v-col>
@@ -68,7 +67,7 @@ export default {
       this.checkins = res.data
       this.latlng = [res.data[0].vLat, res.data[0].vLng]
       this.name = res.data[0].vName
-      this.category = res.data[0].vCategoryNam
+      this.category = res.data[0].vCategoryName
       console.log(this.latlng)
     })
   },
@@ -83,5 +82,11 @@ export default {
 <style scoped>
 .container {
   max-width: calc(min(1200px, 95%))
+}
+
+.venue-map {
+  height: 300px;
+  max-height: 30vh;
+  width: 100%
 }
 </style>
