@@ -1,5 +1,6 @@
 <template>
   <l-map
+      v-if="latlng"
       :zoom="zoom"
       :center="latlng"
       :options="options"
@@ -31,9 +32,6 @@ export default {
     LCircle
   },
   props: ['latlng'],
-  mounted() {
-    console.log(this.latlng)
-  },
   data() {
     return {
       zoom: 15,

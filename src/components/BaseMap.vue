@@ -1,36 +1,34 @@
 <template>
   <div>
-    <l-map
-        ref="basemap"
-        id="mappreview"
-        class="mapPane"
-        :zoom="zoom"
-        :center="center"
-        :options="options"
-        @update:zoom="zoomUpdated"
-    >
-      <l-tile-layer
-          :visible="true"
-          url="	https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="Data <a href='https://www.openstreetmap.org/copyright'>© OpenStreetMap contributors</a>"
-          layer-type="base"
-      ></l-tile-layer>
-      <l-circle
-          v-for="checkin in checkins"
-          :key="checkin.venue.id"
-          :lat-lng="checkin.venue.location.latlng"
-          :radius="circle.radius"
-          :color="circle.color"
-          :fillColor="circle.fillColor"
-          :fillOpacity="circle.fillOpacity"
+      <l-map
+          ref="basemap"
+          id="mappreview"
+          class="mapPane"
+          :zoom="zoom"
+          :center="center"
+          :options="options"
       >
-        <l-popup>
-          <VenueCard :checkin="checkin"/>
-        </l-popup>
+        <l-tile-layer
+            :visible="true"
+            url="	https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="Data <a href='https://www.openstreetmap.org/copyright'>© OpenStreetMap contributors</a>"
+            layer-type="base"
+        ></l-tile-layer>
+        <l-circle
+            v-for="checkin in checkins"
+            :key="checkin.vId"
+            :lat-lng="[checkin.vLat, checkin.vLng]"
+            :radius="circle.radius"
+            :color="circle.color"
+            :fillColor="circle.fillColor"
+            :fillOpacity="circle.fillOpacity"
+        >
+          <l-popup>
+            <VenueCard :checkin="checkin"/>
+          </l-popup>
 
-      </l-circle>
-    </l-map>
-
+        </l-circle>
+      </l-map>
     <v-dialog
         v-model="loading"
         persistent
@@ -155,12 +153,6 @@ export default {
         if (typeof obj[prop] === 'object' && !Object.isFrozen(obj[prop])) this.deepFreeze(obj[prop]);
       });
       return Object.freeze(obj);
-    },
-    zoomUpdated(zoom) {
-      console.log(zoom)
-      // return 0
-      // const radius = [100, 100, 100, 100, 100, 100, 100, 100, 300, 300, 100, 100, 50, 50, 10, 10, 10, 10, 10]
-      // this.$set(this.circle, 'radius', radius[zoom - 1])
     }
   }
 }

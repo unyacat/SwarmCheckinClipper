@@ -6,7 +6,9 @@
         color="#ffa633"
     >
       <v-container class="py-0 fill-height">
-        <v-toolbar-title class="white--text">Swarm Analyzer</v-toolbar-title>
+        <router-link to="/map" style="text-decoration: none;">
+          <v-toolbar-title class="white--text">Swarm Analyzer</v-toolbar-title>
+        </router-link>
       </v-container>
     </v-app-bar>
 
@@ -17,7 +19,7 @@
           <v-row>
             <v-col cols="12">
               <p class="text-h3">
-                {{ this.formatDay }}
+                {{ formatDay }}
               </p>
             </v-col>
           </v-row>
@@ -29,6 +31,8 @@
               icon-color="grey lighten-2"
               v-for="checkin in checkins" :key="checkin.cId"
           >
+            <router-link :to="/venue/ + checkin.vId"
+                         style="text-decoration: none; color: black">
             <v-row justify="space-between">
               <v-col cols="7">
                 {{ checkin.vName }}
@@ -40,6 +44,7 @@
                 {{ unixtimeToHourMinutes(checkin.cCreatedAt) }}
               </v-col>
             </v-row>
+            </router-link>
           </v-timeline-item>
         </v-timeline>
       </v-container>

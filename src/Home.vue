@@ -1,13 +1,12 @@
 <template>
-  <v-main>
-    <v-img
-        src="@/assets/timo-wielink-4Zk45jNyQS4-unsplash.jpg"
-        gradient="to top, rgba(80,95,181,.33), rgba(25,32,72)"
-        height="100vh"
-    >
+  <v-img
+      src="@/assets/timo-wielink-4Zk45jNyQS4-unsplash.jpg"
+      gradient="to top, rgba(80,95,181,.33), rgba(25,32,72)"
+      height="100vh"
+  >
     <v-container>
       <v-row justify="center" align-content="center" style="height: 450px">
-        <v-spacer />
+        <v-spacer/>
         <v-col cols="12">
           <div class="text-h3 text-sm-h3 text-md-h3 text-lg-h2 text-xl-h2 text-center white--text">
             Swarm Analyzer
@@ -35,8 +34,7 @@
         </v-col>
       </v-row>
     </v-container>
-    </v-img>
-  </v-main>
+  </v-img>
 </template>
 
 <script>
@@ -46,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 </style>
