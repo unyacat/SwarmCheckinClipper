@@ -1,37 +1,14 @@
-
-
 <script>
-import {Doughnut} from 'vue-chartjs'
-
+import {Doughnut, mixins} from 'vue-chartjs'
+const { reactiveProp } = mixins
 
 export default {
   name: "ResultGenreCircle",
+  mixins: [reactiveProp],
   extends: Doughnut,
-  data() {
-    return {
-      sample: {
-        // 凡例とツールチップに表示するラベル
-        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        // 表示するデータ
-        datasets: [
-          {
-            data: [10, 15, 6, 22, 11, 49, 32],
-            backgroundColor: ['#ef5350', '#EC407A', '#AB47BC', '#7E57C2', '#5C6BC0', '#42A5F5', '#29B6F6', '#26C6DA',
-            '#26A69A', '#66BB6A', '#9CCC65', '#D4E157', '#FFEE58', '#FFCA28', '#FFA726', '#FF7043'
-            ]
-          }
-        ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-        responsive: true
-      }
-    }
-  },
+  props: ['graph', 'options'],
   mounted() {
-    this.renderChart(this.sample, this.options)
+    this.renderChart(this.graph, this.options)
   }
 }
 </script>
