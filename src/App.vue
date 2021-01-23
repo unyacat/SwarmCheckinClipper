@@ -4,9 +4,11 @@
         color="#ffa633"
         style="z-index: 9999"
         absolute
+        height="64px"
+        app
     >
       <v-container class="py-0 fill-height">
-        <router-link to="/map" style="text-decoration: none;">
+        <router-link to="/result" style="text-decoration: none;">
           <v-toolbar-title class="white--text">Swarm Analyzer</v-toolbar-title>
         </router-link>
       </v-container>

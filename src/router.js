@@ -5,6 +5,7 @@ import Home from './Top'
 import map from './components/BaseMap'
 import VenueDetails from "@/components/VenueDetails";
 import DayCheckins from "@/components/DayCheckins";
+import Result from "@/components/Result";
 
 Vue.use(Router)
 Vue.use(Cookie)
@@ -21,6 +22,11 @@ const router = new Router(
       meta: {
         isPublic: true
       }
+    },
+    {
+      path: '/result',
+      name: 'result',
+      component: Result
     },
     {
       path: '/map',

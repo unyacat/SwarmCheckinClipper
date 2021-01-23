@@ -178,7 +178,7 @@ img.leaflet-tile.leaflet-tile-loaded {
 
 <style scoped>
 .mapPane {
-  height: calc(1vh * 100);
+  height: calc(1vh * 100 - 64px);
   margin: 0;
   text-align: left;
 }
