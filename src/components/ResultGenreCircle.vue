@@ -6,9 +6,9 @@ export default {
   name: "ResultGenreCircle",
   mixins: [reactiveProp],
   extends: Doughnut,
-  props: ['graph', 'options'],
+  props: ['options'],
   mounted() {
-    this.renderChart(this.graph, this.options)
+    this.renderChart(this.chartData, this.options)
   }
 }
 </script>
