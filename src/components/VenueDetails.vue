@@ -84,7 +84,7 @@ export default {
 
 .venue-map {
   height: 300px;
-  max-height: 30vh;
+  max-height: 35vh;
   width: 100%
 }
 
