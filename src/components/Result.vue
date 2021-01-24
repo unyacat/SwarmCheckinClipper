@@ -1,8 +1,7 @@
 <template>
   <v-container>
-    <v-row>
-      <v-spacer/>
-      <v-col cols="12">
+    <v-row justify="center">
+      <v-col cols="8">
         <p class="text-sm-h5 text-md-h4">
           ジャンル別
         </p>

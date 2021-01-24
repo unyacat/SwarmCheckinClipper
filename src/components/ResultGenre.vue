@@ -1,10 +1,37 @@
 <template>
-  <v-row>
+  <v-row justify="center">
     <v-col cols="4">
       <result-genre-circle v-if="chartData" :chart-data="chartData" :options="options"/>
     </v-col>
-    <v-col cols="8">
-      <p> hogehoge </p>
+    <v-col cols="4">
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <v-img src="@/assets/medal_0001_01.png"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>鉄道駅</v-list-item-title>
+          <v-list-item-subtitle>2000チェックイン</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <v-img src="@/assets/medal_0001_02.png"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>Two-line item</v-list-item-title>
+          <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <v-img src="@/assets/medal_0001_03.png"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>Two-line item</v-list-item-title>
+          <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
     </v-col>
   </v-row>
 </template>
