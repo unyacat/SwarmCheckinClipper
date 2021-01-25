@@ -31,7 +31,6 @@
           <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
     </v-col>
   </v-row>
 </template>

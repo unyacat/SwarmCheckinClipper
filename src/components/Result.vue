@@ -2,6 +2,17 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="8">
+        <div class="text-center text-sm-h5 text-md-h4">
+          チェックイン数
+        </div>
+      </v-col>
+      <v-col cols="8">
+        <div class="text-center text-sm-h3 text-md-h2">
+          <AnimatedNumber number="7777" />
+        </div>
+      </v-col>
+
+      <v-col cols="8">
         <p class="text-sm-h5 text-md-h4">
           ジャンル別
         </p>
@@ -31,11 +42,12 @@
 
 <script>
 import ResultGenre from "@/components/ResultGenre";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 
 export default {
   name: "result",
-  components: {ResultGenre},
+  components: {AnimatedNumber, ResultGenre},
 }
 </script>
 
