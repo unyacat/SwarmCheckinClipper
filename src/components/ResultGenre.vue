@@ -9,8 +9,8 @@
           <v-img src="@/assets/medal_0001_01.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>鉄道駅</v-list-item-title>
-          <v-list-item-subtitle>2000チェックイン</v-list-item-subtitle>
+          <v-list-item-title> {{ chartData.labels[0] }} </v-list-item-title>
+          <v-list-item-subtitle> {{ chartData.datasets[0].data[0] }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item two-line>
@@ -18,8 +18,8 @@
           <v-img src="@/assets/medal_0001_02.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Two-line item</v-list-item-title>
-          <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
+          <v-list-item-title> {{ chartData.labels[1] }} </v-list-item-title>
+          <v-list-item-subtitle> {{ chartData.datasets[0].data[1] }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item two-line>
@@ -27,8 +27,8 @@
           <v-img src="@/assets/medal_0001_03.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Two-line item</v-list-item-title>
-          <v-list-item-subtitle>Secondary text</v-list-item-subtitle>
+          <v-list-item-title> {{ chartData.labels[2] }} </v-list-item-title>
+          <v-list-item-subtitle> {{ chartData.datasets[0].data[2] }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-col>
