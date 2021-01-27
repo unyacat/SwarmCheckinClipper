@@ -13,13 +13,22 @@
       </v-col>
 
       <v-col cols="8">
-        <p class="text-sm-h5 text-md-h4">
+        <p class="text-center text-sm-h5 text-md-h4">
           ジャンル別
         </p>
       </v-col>
       <v-col cols="12">
-        <result-genre/>
+        <result-genre />
       </v-col>
+      <v-col cols="8">
+        <p class="text-center text-sm-h5 text-md-h4">
+          チェックイン回数
+        </p>
+      </v-col>
+      <v-col cols="12">
+        <result-venue />
+      </v-col>
+
       <v-col cols="12">
         <div class="text-h3 text-sm-h3 text-md-h3 text-lg-h2 text-xl-h2 text-center white--text">
           Swarm Analyzer
@@ -43,11 +52,12 @@
 <script>
 import ResultGenre from "@/components/ResultGenre";
 import AnimatedNumber from "@/components/AnimatedNumber";
+import ResultVenue from "@/components/ResultVenue";
 
 
 export default {
   name: "result",
-  components: {AnimatedNumber, ResultGenre},
+  components: {ResultVenue, AnimatedNumber, ResultGenre},
 }
 </script>
 
