@@ -6,8 +6,8 @@
           <v-img src="@/assets/medal_0001_01.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title> 〇〇駅 </v-list-item-title>
-          <v-list-item-subtitle> 125 チェックイン</v-list-item-subtitle>
+          <v-list-item-title> {{ ranks[0].vName }} </v-list-item-title>
+          <v-list-item-subtitle> {{ ranks[0].count }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item two-line>
@@ -15,8 +15,8 @@
           <v-img src="@/assets/medal_0001_02.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title> □□ビル </v-list-item-title>
-          <v-list-item-subtitle> 8 チェックイン</v-list-item-subtitle>
+          <v-list-item-title> {{ ranks[1].vName }} </v-list-item-title>
+          <v-list-item-subtitle> {{ ranks[0].count }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-list-item two-line>
@@ -24,8 +24,8 @@
           <v-img src="@/assets/medal_0001_03.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title> ねこ </v-list-item-title>
-          <v-list-item-subtitle> 2 チェックイン</v-list-item-subtitle>
+          <v-list-item-title> {{ ranks[2].vName }} </v-list-item-title>
+          <v-list-item-subtitle> {{ ranks[0].count }} チェックイン</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-col>
@@ -38,9 +38,14 @@ export default {
   name: "ResultGenre",
   data() {
     return {
+      ranks: []
     }
   },
   mounted() {
+    this.$axios.get(process.env.VUE_APP_HOST + "/api/rank/venue", {withCredentials: true}).then((res) => {
+      this.ranks = res.data
+      console.log(this.ranks)
+    })
   }
 }
 </script>
