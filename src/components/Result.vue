@@ -28,6 +28,14 @@
       <v-col cols="12">
         <result-venue />
       </v-col>
+      <v-col cols="8">
+        <p class="text-center text-sm-h5 text-md-h4">
+          チェックインヒートマップ
+        </p>
+      </v-col>
+      <v-col cols="12">
+        <result-heatmap />
+      </v-col>
 
       <v-col cols="12">
         <div class="text-h3 text-sm-h3 text-md-h3 text-lg-h2 text-xl-h2 text-center white--text">
@@ -53,11 +61,12 @@
 import ResultGenre from "@/components/ResultGenre";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import ResultVenue from "@/components/ResultVenue";
+import ResultHeatmap from "@/components/ResultHeatmap";
 
 
 export default {
   name: "result",
-  components: {ResultVenue, AnimatedNumber, ResultGenre},
+  components: {ResultHeatmap, ResultVenue, AnimatedNumber, ResultGenre},
 }
 </script>
 
