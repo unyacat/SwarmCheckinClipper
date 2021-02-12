@@ -7,6 +7,7 @@
         :end-date="endDate"
         tooltip-unit="checkins"
         :range-color="['#ebedf0', '#ffbe8c', '#ff9a60', '#ff8426', '#ff4f00']"
+        @day-click="handleDayClick"
     ></calendar-heatmap>
   </div>
 </template>
@@ -30,6 +31,13 @@ export default {
     this.$axios.get(process.env.VUE_APP_HOST + "/api/checkin-freq", {withCredentials: true}).then(res => {
       this.count = res.data
     })
+  },
+  methods: {
+    handleDayClick(day) {
+      day = Math.floor(day.date.getTime())
+      day = dayjs(day).format("YYYYMMDD")
+      this.$router.push("/day/" + day)
+    }
   }
 }
 </script>
