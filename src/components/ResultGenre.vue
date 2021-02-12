@@ -1,9 +1,9 @@
 <template>
-  <v-row justify="center">
-    <v-col cols="4">
+  <v-row justify="center" align-content="center">
+    <v-col cols="8" md="3" lg="2">
       <result-genre-circle v-if="chartData" :chart-data="chartData" :options="options"/>
     </v-col>
-    <v-col cols="4">
+    <v-col cols="12" xs="8" sm="8" md="3" lg="3">
       <v-list-item two-line>
         <v-list-item-avatar>
           <v-img src="@/assets/medal_0001_01.png"></v-img>

@@ -6,34 +6,31 @@
           チェックイン数
         </div>
       </v-col>
-      <v-col cols="8">
-        <div class="text-center text-sm-h3 text-md-h2">
-          <AnimatedNumber number="7777" />
+
+      <v-col cols="12" md="8" lg="8" xl="8">
+        <div class="text-center text-h2 text-sm-h2">
+          <AnimatedNumber number="7777"/>
         </div>
       </v-col>
 
-      <v-col cols="8">
+      <v-col cols="12">
         <p class="text-center text-sm-h5 text-md-h4">
           ジャンル別
         </p>
-      </v-col>
-      <v-col cols="12">
         <result-genre />
       </v-col>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="6" xl="6">
         <p class="text-center text-sm-h5 text-md-h4">
           チェックイン回数
         </p>
-      </v-col>
-      <v-col cols="12">
         <result-venue />
       </v-col>
-      <v-col cols="8">
+      <v-col cols="12" md="8" lg="8" xl="8">
         <p class="text-center text-sm-h5 text-md-h4">
           チェックインヒートマップ
         </p>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" md="8" lg="8" xl="8">
         <result-heatmap />
       </v-col>
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <calendar-heatmap
+        cols="12" md="8" lg="8" xl="8"
         v-if="count"
         :values="count"
         :end-date="endDate"
