@@ -37,19 +37,29 @@
       </v-layout>
       <v-timeline dense>
         <v-timeline-item
-            class="mb-4"
+            class="mb-6"
             icon-color="grey lighten-2"
             v-for="checkin in checkins" :key="checkin.cId"
         >
+          <template v-slot:icon>
+            <v-avatar>
+              <img :src="checkin.vCategoryIcon">
+            </v-avatar>
+          </template>
           <router-link :to="/venue/ + checkin.vId"
                        style="text-decoration: none; color: black">
             <v-row justify="space-between">
-              <v-col cols="7">
-                {{ checkin.vName }}
+              <v-col cols="9">
+                <div class="text-h6">
+                  {{ checkin.vName }}
+                </div>
+                <div v-if="checkin.cShout">
+                  「{{ checkin.cShout }}」
+                </div>
               </v-col>
               <v-col
                   class="text-right"
-                  cols="5"
+                  cols="3"
               >
                 {{ unixtimeToHourMinutes(checkin.cCreatedAt) }}
               </v-col>
