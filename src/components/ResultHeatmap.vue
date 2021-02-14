@@ -6,6 +6,7 @@
         :values="count"
         :end-date="endDate"
         tooltip-unit="checkins"
+        :locale="locale"
         :range-color="['#ebedf0', '#ffbe8c', '#ff9a60', '#ff8426', '#ff4f00']"
         @day-click="handleDayClick"
     ></calendar-heatmap>
@@ -24,7 +25,11 @@ export default {
   data() {
     return {
       endDate: dayjs().format("YYYY-MM-DD"),
-      count: null
+      count: null,
+      locale: {
+        months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        days: ['日', '月', '火', '水', '木', '金', '土']
+      }
     }
   },
   mounted() {
