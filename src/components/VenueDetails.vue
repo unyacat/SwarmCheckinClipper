@@ -7,7 +7,7 @@
         <v-layout>
           <v-row>
             <v-col cols="12">
-              <p class="text-sm-h4 text-md-h3">
+              <p class="text-h4 text-sm-h4 text-md-h3">
                 {{ name }}
               </p>
               <p class="text-sm-h5 text-md-h4">

@@ -28,7 +28,7 @@
       <v-layout>
         <v-row>
           <v-col cols="12">
-            <p class="text-h3">
+            <p class="text-h4 text-sm-h3">
               {{ formatDay }}
             </p>
           </v-col>
