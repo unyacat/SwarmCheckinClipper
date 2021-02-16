@@ -25,17 +25,28 @@
             </th>
           </tr>
           </thead>
-          <tbody>
-          <tr v-for="checkin in checkins" :key="checkin.cId">
-            <td>
-              <router-link :to="/day/ + unixToYMD(checkin.cCreatedAt)"
-                           style="text-decoration: none; color: black">
-                {{ unixToRealtime(checkin.cCreatedAt) }}
-              </router-link>
-            </td>
-          </tr>
-          </tbody>
         </v-simple-table>
+        <v-timeline dense>
+          <v-timeline-item
+              class="mb-6"
+              icon-color="grey lighten-2"
+              v-for="checkin in checkins" :key="checkin.cId"
+          >
+            <router-link :to="/day/ + unixToYMD(checkin.cCreatedAt)"
+                         style="text-decoration: none; color: black">
+              <v-row justify="space-between">
+                <v-col cols="9">
+                  <div class="text-h6">
+                    {{ unixToRealtime(checkin.cCreatedAt) }}
+                  </div>
+                  <div v-if="checkin.cShout">
+                    「{{ checkin.cShout }}」
+                  </div>
+                </v-col>
+              </v-row>
+            </router-link>
+          </v-timeline-item>
+        </v-timeline>
       </v-container>
   </div>
 </template>
@@ -55,7 +66,12 @@ export default {
       name: "",
       category: "",
       latlng: [135, 35],
-      checkins: []
+      checkins: [],
+      headers: [{
+        text: "day",
+        value: "cCreatedAt"
+      }],
+      items: []
     }
   },
   mounted() {
