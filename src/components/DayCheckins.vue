@@ -46,25 +46,33 @@
               <img :src="checkin.vCategoryIcon">
             </v-avatar>
           </template>
-          <router-link :to="/venue/ + checkin.vId"
-                       style="text-decoration: none; color: black">
-            <v-row justify="space-between">
-              <v-col cols="9">
+          <v-row justify="space-between">
+            <v-col cols="10">
+              <router-link :to="/venue/ + checkin.vId"
+                           style="text-decoration: none; color: black">
+
                 <div class="text-h6">
                   {{ checkin.vName }}
                 </div>
                 <div v-if="checkin.cShout">
                   「{{ checkin.cShout }}」
                 </div>
-              </v-col>
-              <v-col
-                  class="text-right"
-                  cols="3"
-              >
-                {{ unixtimeToHourMinutes(checkin.cCreatedAt) }}
-              </v-col>
-            </v-row>
-          </router-link>
+              </router-link>
+            </v-col>
+            <v-col class="text-right" cols="1">
+              {{ unixtimeToHourMinutes(checkin.cCreatedAt) }}
+            </v-col>
+            <v-col
+                cols="1"
+            >
+              <a :href=" 'https://www.swarmapp.com/checkin/' + checkin.cId " style="text-decoration: none; color: black"
+                 target="_blank" rel="noopener">
+                <v-icon>
+                  mdi-arrow-top-right
+                </v-icon>
+              </a>
+            </v-col>
+          </v-row>
         </v-timeline-item>
       </v-timeline>
     </v-container>
