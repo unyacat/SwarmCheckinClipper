@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from jose import jwt
 from dotenv import load_dotenv
 
-from fastAPI import crud
+import crud
 import models, schemas
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
