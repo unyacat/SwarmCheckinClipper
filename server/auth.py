@@ -13,18 +13,20 @@ random_key = os.environ.get("RANDOM_KEY")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-def create_tokens(db: Session, user_id: str):
+def create_tokens(db: Session, user_id: int, at: str):
     """パスワード認証を行い、トークンを生成"""
     # ペイロード作成
     access_payload = {
         'token_type': 'access_token',
         'exp': datetime.utcnow() + timedelta(minutes=60),
         'user_id': user_id,
+        'at': at
     }
     refresh_payload = {
         'token_type': 'refresh_token',
         'exp': datetime.utcnow() + timedelta(days=90),
         'user_id': user_id,
+        'at': at
     }
 
     # トークン作成（本来は'SECRET_KEY123'はもっと複雑にする）

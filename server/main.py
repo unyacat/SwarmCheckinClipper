@@ -8,6 +8,7 @@ import foursquare
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 
+from auth import create_tokens
 import crud, models, schemas
 from database import SessionLocal, engine
 from fastapi.security import OAuth2PasswordRequestForm
@@ -39,13 +40,18 @@ def auth():
 
 
 @app.get("/callback")
-async def callback(code: str = None):
+async def callback(code: str = None, db: Session = Depends(get_db)):
     if not code:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST
         )
     redirect_uri = 'http://' + os.environ.get("DOMAIN") + '/callback'
     client = foursquare.Foursquare(client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
+    access_token = client.oauth.get_token(code)
+    client = foursquare.Foursquare(access_token=access_token)
+    user = client.users()
+    user_id = user["user"]["id"]
+    return create_tokens(db=db, user_id=user_id, at=code)
     # access_token = client.oauth.get_token(request.args.get('code'))
 
 
@@ -55,7 +61,6 @@ def load_checkins():
     return crud.post_checkins()
 
 
-from auth import create_tokens
 @app.get("/token", response_model=schemas.Token)
 async def login(code: str = None, db: Session = Depends(get_db)):
     """トークン発行"""
@@ -100,4 +105,4 @@ async def login(code: str = None, db: Session = Depends(get_db)):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=80)

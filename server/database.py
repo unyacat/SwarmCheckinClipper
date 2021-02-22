@@ -9,7 +9,7 @@ dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 db_user = os.environ.get("DB_USER")
 db_pass = os.environ.get("DB_PASS")
-host = os.environ.get("DOMAIN")
+host = os.environ.get("DB_DOMAIN")
 port = 3306
 db_name = "test_db"
 option = "?charset=utf8"
