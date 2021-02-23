@@ -20,13 +20,13 @@ def create_tokens(db: Session, user_id: int, at: str):
         'token_type': 'access_token',
         'exp': datetime.utcnow() + timedelta(minutes=60),
         'user_id': user_id,
-        'at': at
+        'foursquare_token': at
     }
     refresh_payload = {
         'token_type': 'refresh_token',
         'exp': datetime.utcnow() + timedelta(days=90),
         'user_id': user_id,
-        'at': at
+        'foursquare_token': at
     }
 
     # トークン作成（本来は'SECRET_KEY123'はもっと複雑にする）

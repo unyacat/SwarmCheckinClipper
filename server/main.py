@@ -1,7 +1,7 @@
 from typing import List
 import os
 
-from fastapi import Depends, FastAPI, HTTPException, Cookie, status
+from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
 import uvicorn
 import foursquare
@@ -51,6 +51,7 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     client = foursquare.Foursquare(access_token=access_token)
     user = client.users()
     user_id = user["user"]["id"]
+    
     return create_tokens(db=db, user_id=user_id, at=code)
     # access_token = client.oauth.get_token(request.args.get('code'))
 
