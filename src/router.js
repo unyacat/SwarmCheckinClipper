@@ -6,6 +6,7 @@ import map from './components/BaseMap'
 import VenueDetails from "@/components/VenueDetails";
 import DayCheckins from "@/components/DayCheckins";
 import Result from "@/components/Result";
+import Callback from "@/components/Callback"
 
 Vue.use(Router)
 Vue.use(Cookie)
@@ -47,10 +48,15 @@ const router = new Router(
     },
     {
       path: '/auth',
-      beforeEnter() {location.href = process.env.VUE_APP_HOST + '/auth'},
+      beforeEnter() {location.href = process.env.VUE_APP_HOST + '/api/auth'},
       meta: {
         isPublic: true
       }
+    },
+    {
+      path: '/callback',
+      name: 'callback',
+      component: Callback
     },
     {
       name: 'notfound',

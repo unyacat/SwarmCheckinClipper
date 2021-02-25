@@ -3,6 +3,7 @@ import os
 
 from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
+from starlette.responses import JSONResponse
 import uvicorn
 import foursquare
 from dotenv import load_dotenv
@@ -12,6 +13,7 @@ from auth import create_tokens
 import crud, models, schemas
 from database import SessionLocal, engine
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 models.Base.metadata.create_all(bind=engine)
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -22,7 +24,13 @@ cs = os.environ.get("CS")
 
 app = FastAPI()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,  
+    allow_methods=["*"],      
+    allow_headers=["*"]       
+)
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -32,14 +40,14 @@ def get_db():
         db.close()
 
 
-@app.get("/auth")
+@app.get("/api/auth")
 def auth():
     redirect_uri = 'http://' + os.environ.get("DOMAIN") + '/callback'
     client = foursquare.Foursquare(client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
     return RedirectResponse(client.oauth.auth_url())
 
 
-@app.get("/callback")
+@app.get("/api/callback")
 async def callback(code: str = None, db: Session = Depends(get_db)):
     if not code:
         raise HTTPException(
@@ -52,7 +60,14 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     user = client.users()
     user_id = user["user"]["id"]
     
-    return create_tokens(db=db, user_id=user_id, at=code)
+    token = create_tokens(db=db, user_id=user_id, at=code)
+    # content = {
+    #     "status": "Success"
+    # }
+    # response = JSONResponse(content=content)
+    # response.set_cookie(key="token", value=token)
+    print(token)
+    return token
     # access_token = client.oauth.get_token(request.args.get('code'))
 
 
