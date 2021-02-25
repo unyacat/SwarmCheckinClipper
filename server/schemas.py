@@ -1,4 +1,5 @@
 from typing import List, Optional
+import foursquare
 
 from pydantic import BaseModel, HttpUrl, PositiveInt
 
@@ -33,8 +34,8 @@ class Token(BaseModel):
 
 class User(BaseModel):
     id: int
-    refresh_token: str
-
+    foursquare_at: str
+    
     class Config:
         orm_mode = True
 

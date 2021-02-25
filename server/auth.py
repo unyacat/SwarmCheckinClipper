@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
+import foursquare
 from sqlalchemy.orm import Session
 from jose import jwt
 from dotenv import load_dotenv
@@ -20,13 +21,11 @@ def create_tokens(db: Session, user_id: int, at: str):
         'token_type': 'access_token',
         'exp': datetime.utcnow() + timedelta(minutes=60),
         'user_id': user_id,
-        'foursquare_token': at
     }
     refresh_payload = {
         'token_type': 'refresh_token',
         'exp': datetime.utcnow() + timedelta(days=90),
         'user_id': user_id,
-        'foursquare_token': at
     }
 
     # トークン作成（本来は'SECRET_KEY123'はもっと複雑にする）
@@ -36,7 +35,7 @@ def create_tokens(db: Session, user_id: int, at: str):
     # DBにリフレッシュトークンを保存
     # db.query(User).update({"refresh_token": refresh_token}).filter(User.id == user_id).values()
     # User.update(refresh_token=refresh_token).where(User.id == user_id).execute()
-    user = schemas.User(id=user_id, refresh_token=refresh_token)
+    user = schemas.User(id=user_id, foursquare_at=at)
     crud.create_user_item(db, user)
 
 

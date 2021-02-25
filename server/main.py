@@ -60,7 +60,7 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     user = client.users()
     user_id = user["user"]["id"]
     
-    token = create_tokens(db=db, user_id=user_id, at=code)
+    token = create_tokens(db=db, user_id=user_id, at=access_token)
     return token
 
 

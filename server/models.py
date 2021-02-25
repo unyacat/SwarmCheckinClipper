@@ -1,3 +1,4 @@
+from fastapi.param_functions import Cookie
 from sqlalchemy import Column, Integer, String, Float, DateTime, func
 from database import Base
 
@@ -21,6 +22,7 @@ class Checkin(Base):
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, index=True, primary_key=True)
+    foursquare_at = Column(String(128))
     refresh_token = Column(String(512))
     created_at = Column(DateTime, nullable=False, server_default=func.now())
     updated_at = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
