@@ -47,7 +47,7 @@ def auth():
     return RedirectResponse(client.oauth.auth_url())
 
 
-@app.get("/api/callback")
+@app.get("/api/token")
 async def callback(code: str = None, db: Session = Depends(get_db)):
     if not code:
         raise HTTPException(
@@ -61,14 +61,7 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     user_id = user["user"]["id"]
     
     token = create_tokens(db=db, user_id=user_id, at=code)
-    # content = {
-    #     "status": "Success"
-    # }
-    # response = JSONResponse(content=content)
-    # response.set_cookie(key="token", value=token)
-    print(token)
     return token
-    # access_token = client.oauth.get_token(request.args.get('code'))
 
 
 @app.get("/api/load_checkins", response_model=schemas.LoadCheckin)
@@ -77,11 +70,6 @@ def load_checkins():
     return crud.post_checkins()
 
 
-@app.get("/token", response_model=schemas.Token)
-async def login(code: str = None, db: Session = Depends(get_db)):
-    """トークン発行"""
-    # user = authenticate(form.username, form.password)
-    return create_tokens(db=db, user_id=code)
 
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):

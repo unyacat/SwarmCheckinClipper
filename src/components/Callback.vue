@@ -7,7 +7,7 @@ export default {
   name: "callback",
   created: function () {
     this.$axios
-      .get(process.env.VUE_APP_HOST + "/api/callback", {
+      .get(process.env.VUE_APP_HOST + "/api/token", {
         params: {
           code: this.$route.query.code
         },
