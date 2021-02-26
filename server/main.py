@@ -4,15 +4,16 @@ import os
 from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
 from starlette.responses import JSONResponse
+
 import uvicorn
 import foursquare
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 
-from auth import create_tokens
+from auth import create_tokens, read_foursquare_access_token
 import crud, models, schemas
 from database import SessionLocal, engine
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 models.Base.metadata.create_all(bind=engine)
 
@@ -64,10 +65,14 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     return token
 
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
+
 @app.get("/api/load_checkins", response_model=schemas.LoadCheckin)
-def load_checkins():
-    crud.post_checkins()
-    return crud.post_checkins()
+async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    print(token)
+    f_at = read_foursquare_access_token(db=db, token=token)
+    # crud.post_checkins()
+    return token
 
 
 
