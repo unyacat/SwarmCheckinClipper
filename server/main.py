@@ -69,9 +69,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
 
 @app.get("/api/load_checkins", response_model=schemas.LoadCheckin)
 async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    print(token)
     f_at = read_foursquare_access_token(db=db, token=token)
-    # crud.post_checkins()
     return token
 
 

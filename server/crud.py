@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.functions import user
 
 import models, schemas
 
@@ -49,3 +50,7 @@ def create_user_item(db: Session, item: schemas.User):
     db.merge(db_item)
     db.commit()
     return db_item
+
+def load_user_item(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
+    

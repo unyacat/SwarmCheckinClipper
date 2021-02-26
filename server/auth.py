@@ -43,15 +43,14 @@ def create_tokens(db: Session, user_id: int, at: str):
     return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
 
 
-def read_foursquare_access_token(db: Session, token: str):
-    payload = jwt.decode(token, 'SECRET_KEY123', algorithms=['HS256'])
-
+def read_foursquare_access_token(db: Session, token: str, token_type: str="access_token"):
+    payload = jwt.decode(token=token, key=random_key, algorithms=['HS256'])
     if payload['token_type'] != token_type:
         raise HTTPException(status_code=401, detail=f'トークンタイプ不一致')
 
-    user = models.User.get_by_id(payload['user_id'])
-
-    return user["foursquare_at"]
+    user = crud.load_user_item(db=db, user_id=payload['user_id'])
+    print(user.foursquare_at)
+    return user
 
 # async def get_current_user(token: str = Depends(oauth2_scheme)):
 #     """アクセストークンからログイン中のユーザーを取得"""
