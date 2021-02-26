@@ -49,7 +49,6 @@ def read_foursquare_access_token(db: Session, token: str, token_type: str="acces
         raise HTTPException(status_code=401, detail=f'トークンタイプ不一致')
 
     user = crud.load_user_item(db=db, user_id=payload['user_id'])
-    print(user.foursquare_at)
     return user
 
 # async def get_current_user(token: str = Depends(oauth2_scheme)):
