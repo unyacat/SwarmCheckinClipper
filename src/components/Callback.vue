@@ -16,7 +16,7 @@ export default {
         localStorage.access_token = res.data.access_token;
       })
       .then(
-        this.$router.push('result')
+        this.$router.push('load')
       )
       .catch(() => {
         console.log("なにかがおかしいよ")

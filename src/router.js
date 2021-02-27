@@ -7,7 +7,7 @@ import VenueDetails from "@/components/VenueDetails";
 import DayCheckins from "@/components/DayCheckins";
 import Result from "@/components/Result";
 import Callback from "@/components/Callback"
-
+import LoadCheckins from "@/components/LoadCheckins"
 Vue.use(Router)
 Vue.use(Cookie)
 
@@ -52,6 +52,11 @@ const router = new Router(
       meta: {
         isPublic: true
       }
+    },
+    {
+      path: '/load',
+      name: 'load',
+      component: LoadCheckins
     },
     {
       path: '/callback',
