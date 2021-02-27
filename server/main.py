@@ -28,9 +28,9 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,  
-    allow_methods=["*"],      
-    allow_headers=["*"]       
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 # Dependency
 def get_db():
@@ -40,6 +40,7 @@ def get_db():
     finally:
         db.close()
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
 
 @app.get("/api/auth")
 def auth():
@@ -65,7 +66,6 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     return token
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
 
 @app.get("/api/load_checkins", response_model=schemas.LoadCheckin)
 async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
