@@ -1,26 +1,19 @@
 from typing import List, Optional
-import foursquare
-
 from pydantic import BaseModel, HttpUrl, PositiveInt
 
 
-class CheckinBase(BaseModel):
-    userId = int
-    cId = str
-    cCreatedAt = PositiveInt
-    # cPhotos = str
-    cShout = str
-    vId = str
-    vName = str
-    vCategoryName = str
-    vCategoryIconURL = HttpUrl
-    vCategoryId = str
-    vLat = float
-    vLng = float
-
-
-class LoadCheckin(CheckinBase):
-    pass
+class Checkin(BaseModel):
+    userId: int
+    cId: str
+    cCreatedAt: PositiveInt
+    cShout: str = None
+    vId: str
+    vName: str
+    vCategoryName: str
+    vCategoryIconURL: HttpUrl
+    vCategoryId: str
+    vLat: float
+    vLng: float
 
 
 class Token(BaseModel):
@@ -35,7 +28,6 @@ class Token(BaseModel):
 class User(BaseModel):
     id: int
     foursquare_at: str
-    
     class Config:
         orm_mode = True
 

@@ -12,7 +12,7 @@ db_pass = os.environ.get("DB_PASS")
 host = os.environ.get("DB_DOMAIN")
 port = 3306
 db_name = "test_db"
-option = "?charset=utf8"
+option = "?charset=utf8mb4"
 
 SQLALCHEMY_DATABASE_URL = '{}://{}:{}@{}:{}/{}{}'.format(DATABASE, db_user, db_pass, host, port, db_name, option)
 

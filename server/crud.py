@@ -4,7 +4,7 @@ from sqlalchemy.sql.functions import user
 import models, schemas
 
 
-def post_checkins(db: Session, item: schemas.LoadCheckin):
+def post_checkins(db: Session, item: schemas.Checkin):
     db_item = models.Checkin(**item.dict())
     db.add(db_item)
     db.commit()
@@ -51,6 +51,13 @@ def create_user_item(db: Session, item: schemas.User):
     db.commit()
     return db_item
 
+
 def load_user_item(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
-    
+
+
+def create_user_checkin_item(db: Session, item: schemas.Checkin):
+    db_item = models.Checkin(**item.dict())
+    db.merge(db_item)
+    db.commit()
+    return db_item

@@ -3,6 +3,7 @@ import os
 
 from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
+from sqlalchemy.sql.base import SchemaEventTarget
 from starlette.responses import JSONResponse
 
 import uvicorn
@@ -11,7 +12,9 @@ from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 
 from auth import create_tokens, read_foursquare_access_token
-import crud, models, schemas
+import crud
+import models
+import schemas
 from database import SessionLocal, engine
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,6 +36,8 @@ app.add_middleware(
     allow_headers=["*"]
 )
 # Dependency
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -40,12 +45,15 @@ def get_db():
     finally:
         db.close()
 
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
+
 
 @app.get("/api/auth")
 def auth():
     redirect_uri = 'http://' + os.environ.get("DOMAIN") + '/callback'
-    client = foursquare.Foursquare(client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
+    client = foursquare.Foursquare(
+        client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
     return RedirectResponse(client.oauth.auth_url())
 
 
@@ -56,7 +64,8 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST
         )
     redirect_uri = 'http://' + os.environ.get("DOMAIN") + '/callback'
-    client = foursquare.Foursquare(client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
+    client = foursquare.Foursquare(
+        client_id=cid, client_secret=cs, redirect_uri=redirect_uri)
     access_token = client.oauth.get_token(code)
     client = foursquare.Foursquare(access_token=access_token)
     user = client.users()
@@ -65,12 +74,44 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     return token
 
 
-
-@app.get("/api/load_checkins", response_model=schemas.LoadCheckin)
+@app.get("/api/load_checkins")
 async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    f_at = read_foursquare_access_token(db=db, token=token)
-    return token
+    user_id, f_at = read_foursquare_access_token(db=db, token=token)
+    client = foursquare.Foursquare(access_token=f_at, lang='ja')
+    offset = 0
 
+    while True:
+        checkins = client.users.checkins(
+            USER_ID='self', params={"limit": 250, "offset": offset}
+        )
+        for checkin in checkins["checkins"]["items"]:
+            # コメントなしチェックイン
+            if not checkin.get("shout"):
+                checkin["shout"] = None
+            # 無カテゴリーチェックインは無視する
+            if not len(checkin["venue"]["categories"]):
+                continue
+            item = schemas.Checkin(
+                userId=user_id,
+                cId=checkin["id"],
+                cCreatedAt=checkin["createdAt"],
+                cShout=checkin["shout"],
+                vId=checkin["venue"]["id"],
+                vName=checkin["venue"]["name"],
+                vCategoryName=checkin["venue"]["categories"][0]["name"],
+                vCategoryIconURL=checkin['venue']['categories'][0]['icon']['prefix'] +
+                "bg_64" + checkin['venue']['categories'][0]['icon']['suffix'],
+                vCategoryId=checkin["venue"]['categories'][0]["id"],
+                vLat=checkin['venue']['location']['lat'],
+                vLng=checkin['venue']['location']['lng']
+            )
+            crud.create_user_checkin_item(db=db, item=item)
+
+        offset += len(checkins["checkins"]["items"])
+        if (offset >= checkins["checkins"]["count"]) or (len(checkins["checkins"]["items"]) == 0):
+            break
+
+    return {"status": "done"}
 
 
 # @app.post("/users/", response_model=schemas.User)
@@ -107,7 +148,6 @@ async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oaut
 #     items = crud.get_items(db, skip=skip, limit=limit)
 #     return items
 #
-
 
 
 if __name__ == "__main__":

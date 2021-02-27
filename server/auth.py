@@ -47,9 +47,9 @@ def read_foursquare_access_token(db: Session, token: str, token_type: str="acces
     payload = jwt.decode(token=token, key=random_key, algorithms=['HS256'])
     if payload['token_type'] != token_type:
         raise HTTPException(status_code=401, detail=f'トークンタイプ不一致')
-
-    user = crud.load_user_item(db=db, user_id=payload['user_id'])
-    return user
+    user_id = payload['user_id']
+    user = crud.load_user_item(db=db, user_id=user_id)
+    return user_id, user.foursquare_at
 
 # async def get_current_user(token: str = Depends(oauth2_scheme)):
 #     """アクセストークンからログイン中のユーザーを取得"""
