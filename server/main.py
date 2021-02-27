@@ -61,7 +61,6 @@ async def callback(code: str = None, db: Session = Depends(get_db)):
     client = foursquare.Foursquare(access_token=access_token)
     user = client.users()
     user_id = user["user"]["id"]
-    
     token = create_tokens(db=db, user_id=user_id, at=access_token)
     return token
 
