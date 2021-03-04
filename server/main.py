@@ -3,6 +3,7 @@ import os
 
 from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
+from jose.jwt import decode
 from sqlalchemy.sql.base import SchemaEventTarget
 from starlette.responses import JSONResponse
 
@@ -11,7 +12,7 @@ import foursquare
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 
-from auth import create_tokens, read_foursquare_access_token
+from auth import create_tokens, decode_jwt, read_foursquare_access_token
 import crud
 import models
 import schemas
@@ -113,7 +114,11 @@ async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oaut
 
     return {"status": "done"}
 
-
+@app.get("/api/checkin-freq")
+async def get_user_checkin_freq(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    user_id = decode_jwt(token)
+    items = crud.get_user_checkin_freq(db=db, user_id=user_id)
+    return items
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 #     db_user = crud.get_user_by_email(db, email=user.email)

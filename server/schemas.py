@@ -31,7 +31,9 @@ class User(BaseModel):
     class Config:
         orm_mode = True
 
-
+class Count(BaseModel):
+    data: str
+    count: int
 # class Req(BaseModel):
 
 # class ItemBase(BaseModel):
