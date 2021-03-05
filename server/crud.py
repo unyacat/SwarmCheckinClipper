@@ -69,8 +69,15 @@ def get_user_checkin_freq(db: Session, user_id: str):
                 FROM checkins
                 WHERE userId = {user_id} AND cCreatedAt BETWEEN UNIX_TIMESTAMP(DATE_SUB(curdate(), interval 365 DAY)) AND UNIX_TIMESTAMP(DATE_ADD(curdate(), interval 0 DAY))
                 GROUP BY DATE'''.format(user_id=user_id)
-    print(sql)
     return db.execute(sql).fetchall()
+
+
+def get_user_checkin_venue_rank(db: Session, user_id: str):
+    sql = '''
+            SELECT COUNT(*) AS count, vName FROM checkins WHERE userId = {user_id} GROUP BY vId ORDER BY count DESC LIMIT 3
+          '''.format(user_id=user_id)
+    return db.execute(sql).fetchall()
+
 
 # def get_items(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Item).offset(skip).limit(limit).all()

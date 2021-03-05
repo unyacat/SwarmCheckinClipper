@@ -114,10 +114,19 @@ async def load_checkins(db: Session = Depends(get_db), token: str = Depends(oaut
 
     return {"status": "done"}
 
+
 @app.get("/api/checkin-freq")
 async def get_user_checkin_freq(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     user_id = decode_jwt(token)
     items = crud.get_user_checkin_freq(db=db, user_id=user_id)
+    return items
+
+
+
+@app.get("/api/rank/venue")
+async def get_user_checkin_venue_rank(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    user_id = decode_jwt(token)
+    items = crud.get_user_checkin_venue_rank(db, user_id)
     return items
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
