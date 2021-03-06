@@ -4,6 +4,7 @@ import os
 from fastapi import Depends, FastAPI, HTTPException, Cookie, status, Response
 from fastapi.responses import RedirectResponse
 from jose.jwt import decode
+from requests.api import get
 from sqlalchemy.sql.base import SchemaEventTarget
 from starlette.responses import JSONResponse
 
@@ -128,6 +129,15 @@ async def get_user_checkin_venue_rank(db: Session = Depends(get_db), token: str 
     user_id = decode_jwt(token)
     items = crud.get_user_checkin_venue_rank(db, user_id)
     return items
+
+
+@app.get("/api/venue/{venueId:str}")
+async def get_user_checkin_venue_detail(venueId: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    user_id = decode_jwt(token)
+    items = crud.get_user_checkin_venue_detail(db=db, user_id=user_id, venueId=venueId)
+    return items
+
+
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 #     db_user = crud.get_user_by_email(db, email=user.email)

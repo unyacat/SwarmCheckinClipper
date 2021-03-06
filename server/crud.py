@@ -79,5 +79,10 @@ def get_user_checkin_venue_rank(db: Session, user_id: str):
     return db.execute(sql).fetchall()
 
 
+def get_user_checkin_venue_detail(db: Session, user_id: str, venueId: str):
+    sql = db.query(models.Checkin).filter(models.Checkin.userId == user_id).filter(models.Checkin.vId == venueId)
+    return sql.all()
+
+
 # def get_items(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Item).offset(skip).limit(limit).all()
