@@ -138,6 +138,14 @@ async def get_user_checkin_venue_detail(venueId: str, db: Session = Depends(get_
     return items
 
 
+
+@app.get("/api/day/{day:int}")
+async def get_user_checkin_venue_detail(day: str, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    user_id = decode_jwt(token)
+    items = crud.get_user_checkin_day_detail(db=db, user_id=user_id, day=day)
+    return items
+
+
 # @app.post("/users/", response_model=schemas.User)
 # def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 #     db_user = crud.get_user_by_email(db, email=user.email)

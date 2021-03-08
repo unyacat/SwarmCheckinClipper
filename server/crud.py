@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.functions import user
 
@@ -81,6 +82,17 @@ def get_user_checkin_venue_rank(db: Session, user_id: str):
 
 def get_user_checkin_venue_detail(db: Session, user_id: str, venueId: str):
     sql = db.query(models.Checkin).filter(models.Checkin.userId == user_id).filter(models.Checkin.vId == venueId)
+    return sql.all()
+
+
+def get_user_checkin_day_detail(db: Session, user_id: str, day: str):
+    startDatetime = datetime.strptime(day, "%Y%m%d")
+    startUnixTime = startDatetime.timestamp()
+    endDatetime = startDatetime + timedelta(days=1)
+    endUnixTime = endDatetime.timestamp()
+    sql = db.query(models.Checkin).filter(
+        models.Checkin.cCreatedAt.between(startUnixTime, endUnixTime)
+    )
     return sql.all()
 
 
